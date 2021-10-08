@@ -8,12 +8,15 @@
 using System;
 using Antmicro.Migrant;
 using Antmicro.Renode.Core;
+using Antmicro.Renode.Time;
 
 namespace Antmicro.Renode.Logging
 {
     public sealed class LogEntry : ISpeciallySerializable
     {
-        public LogEntry(DateTime time, LogLevel level, string message, int sourceId = NoSource, bool forceMachineName = false, int? threadId = null)
+        public TimeInterval VirtualTime { get; private set; }
+
+        public LogEntry(DateTime time, LogLevel level, string message, int sourceId = NoSource, bool forceMachineName = false, int? threadId = null, TimeInterval virtualTime = new TimeInterval())
         {
             Message = message;
             numericLogLevel = level.NumericLevel;
@@ -21,6 +24,7 @@ namespace Antmicro.Renode.Logging
             Time = time;
             ThreadId = threadId;
             ForceMachineName = forceMachineName;
+            VirtualTime = virtualTime;
             GetNames();
         }
 

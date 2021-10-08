@@ -8,6 +8,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using Antmicro.Renode.Core;
 using Antmicro.Renode.Utilities;
 
 namespace Antmicro.Renode.Logging
@@ -39,7 +40,7 @@ namespace Antmicro.Renode.Logging
 
                 var type = entry.Type;
                 var message = FormatLogEntry(entry);
-                output.WriteLine(string.Format("{0:HH:mm:ss} [{1}] {2}", CustomDateTime.Now, type, message));
+                output.WriteLine(string.Format("{0:HH:mm:ss} {1} [{2}] {3}", CustomDateTime.Now, entry.VirtualTime.ToString(), type, message));
                 if(flushAfterEachWrite)
                 {
                     output.Flush();

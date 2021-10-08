@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using Antmicro.Renode.Utilities;
 using Antmicro.Renode.Debugging;
+using Antmicro.Renode.Core;
 
 namespace Antmicro.Renode.Logging
 {
@@ -62,11 +63,11 @@ namespace Antmicro.Renode.Logging
                 string line;
                 if(LogThreadId && entry.ThreadId != null)
                 {
-                    line = string.Format("{0:HH:mm:ss.ffff} [{1}] ({3}) {2}", CustomDateTime.Now, type, message, entry.ThreadId);
+                    line = string.Format("{0:HH:mm:ss.ffff} {4} [{1}] ({3}) {2}", CustomDateTime.Now, type, message, entry.ThreadId, entry.VirtualTime.ToString());
                 }
                 else
                 {
-                    line = string.Format("{0:HH:mm:ss.ffff} [{1}] {2}", CustomDateTime.Now, type, message);
+                    line = string.Format("{0:HH:mm:ss.ffff} {3} [{1}] {2}", CustomDateTime.Now, type, message, entry.VirtualTime.ToString());
                 }
 
                 var width = 0;

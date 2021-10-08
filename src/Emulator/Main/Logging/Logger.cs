@@ -273,7 +273,11 @@ namespace Antmicro.Renode.Logging
                     message = string.Format(message, args);
                 }
 
-                var entry = new LogEntry(CustomDateTime.Now, type, message, sourceId, alwaysAppendMachineName, Thread.CurrentThread.ManagedThreadId);
+
+                var currentEmulation = EmulationManager.Instance.CurrentEmulation;
+                var masterTime = currentEmulation.MasterTimeSource;
+                var virtualTime = masterTime.ElapsedVirtualTime;
+                var entry = new LogEntry(CustomDateTime.Now, type, message, sourceId, alwaysAppendMachineName, Thread.CurrentThread.ManagedThreadId, virtualTime);
 
                 if(useSynchronousLogging)
                 {
